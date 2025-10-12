@@ -3,7 +3,7 @@
 # =====================================================
 
 # 👉 What is MongoDB?
-# MongoDB is a NoSQL database that stores data in JSON-like documents.
+# MongoDB is a NoSQL database that stores data in JSON-like documents (BSON).
 # Each document has key-value pairs, and documents are stored inside collections.
 
 # Example document:
@@ -79,8 +79,8 @@ db.students.find({ age: { $gt: 20 } })
 db.students.find({ age: { $gte: 21, $lte: 23 } })
 # → Find documents where age is between 21 and 23 (inclusive)
 
-db.students.find({ name: { $in: ["Huzaifa", "Ayesha"] } })
-# → Find students whose name is either Huzaifa or Ayesha
+db.students.find({ name: { $in: ["Huzaifa", "Atta"] } })
+# → Find students whose name is either Huzaifa or Atta
 
 db.students.find({}, { name: 1, _id: 0 })
 # → Show only names (projection)
