@@ -1,0 +1,222 @@
+# =====================================================
+# 🟢 MONGODB NOTES (Detailed and Beginner-Friendly)
+# =====================================================
+
+# 👉 What is MongoDB?
+# MongoDB is a NoSQL database that stores data in JSON-like documents.
+# Each document has key-value pairs, and documents are stored inside collections.
+
+# Example document:
+# {
+#   "name": "Huzaifa",
+#   "age": 21,
+#   "course": "Software Engineering"
+# }
+
+# =====================================================
+# 🔹 1. DATABASE COMMANDS
+# =====================================================
+
+show dbs
+# → Show all existing databases
+
+use myDatabase
+# → Switch to (or create) a new database named "myDatabase"
+
+db
+# → Show the name of the current database
+
+db.dropDatabase()
+# → Delete the current database
+
+# =====================================================
+# 🔹 2. COLLECTION COMMANDS
+# =====================================================
+
+show collections
+# → Show all collections inside the current database
+
+db.createCollection("students")
+# → Create a new collection named "students"
+
+db.students.drop()
+# → Delete (drop) the "students" collection
+
+# =====================================================
+# 🔹 3. INSERT COMMANDS
+# =====================================================
+
+# Insert a single document
+db.students.insertOne({
+  name: "Huzaifa",
+  age: 21,
+  course: "Software Engineering"
+})
+
+# Insert multiple documents
+db.students.insertMany([
+  { name: "Ali", age: 22, course: "Computer Science" },
+  { name: "Ayesha", age: 20, course: "IT" },
+  { name: "Zain", age: 23, course: "Software Engineering" }
+])
+
+# =====================================================
+# 🔹 4. READ COMMANDS (FIND)
+# =====================================================
+
+db.students.find()
+# → Show all documents in the collection
+
+db.students.find().pretty()
+# → Show documents in a readable (pretty) format
+
+db.students.find({ age: 21 })
+# → Find all documents where age = 21
+
+db.students.find({ age: { $gt: 20 } })
+# → Find all documents where age > 20
+
+db.students.find({ age: { $gte: 21, $lte: 23 } })
+# → Find documents where age is between 21 and 23 (inclusive)
+
+db.students.find({ name: { $in: ["Huzaifa", "Ayesha"] } })
+# → Find students whose name is either Huzaifa or Ayesha
+
+db.students.find({}, { name: 1, _id: 0 })
+# → Show only names (projection)
+
+# =====================================================
+# 🔹 5. UPDATE COMMANDS
+# =====================================================
+
+db.students.updateOne(
+  { name: "Huzaifa" },
+  { $set: { age: 22, course: "AI Engineering" } }
+)
+# → Update first matching document
+
+db.students.updateMany(
+  { course: "Software Engineering" },
+  { $set: { course: "SE" } }
+)
+# → Update multiple matching documents
+
+# =====================================================
+# 🔹 6. DELETE COMMANDS
+# =====================================================
+
+db.students.deleteOne({ name: "Ali" })
+# → Delete one matching document
+
+db.students.deleteMany({ age: { $lt: 21 } })
+# → Delete all documents where age < 21
+
+# =====================================================
+# 🔹 7. SORTING, LIMITING, COUNTING
+# =====================================================
+
+db.students.find().sort({ age: 1 })
+# → Sort by age ascending (1 = ascending, -1 = descending)
+
+db.students.find().sort({ age: -1 })
+# → Sort by age descending
+
+db.students.find().limit(2)
+# → Show only 2 documents
+
+db.students.countDocuments()
+# → Count total number of documents
+
+# =====================================================
+# 🔹 8. OPERATORS (COMMON)
+# =====================================================
+
+# Comparison:
+# $eq  = equal
+# $ne  = not equal
+# $gt  = greater than
+# $lt  = less than
+# $gte = greater than or equal
+# $lte = less than or equal
+# $in  = matches any value in array
+# $nin = not in array
+
+db.students.find({ age: { $gte: 21, $lte: 25 } })
+db.students.find({ course: { $in: ["SE", "AI Engineering"] } })
+
+# Logical:
+# $and, $or, $not, $nor
+
+db.students.find({
+  $or: [{ age: 21 }, { course: "SE" }]
+})
+
+db.students.find({
+  $and: [{ age: { $gte: 20 } }, { course: "IT" }]
+})
+
+# =====================================================
+# 🔹 9. INDEXES (for fast searching)
+# =====================================================
+
+db.students.createIndex({ name: 1 })
+# → Create ascending index on name
+
+db.students.getIndexes()
+# → View all indexes
+
+db.students.dropIndex("name_1")
+# → Drop index
+
+# =====================================================
+# 🔹 10. TEXT SEARCH (Full-text search)
+# =====================================================
+
+db.students.createIndex({ name: "text", course: "text" })
+# → Create text index
+
+db.students.find({ $text: { $search: "Engineering" } })
+# → Search documents containing the word "Engineering"
+
+# =====================================================
+# 🔹 11. AGGREGATION (Advanced)
+# =====================================================
+
+db.students.aggregate([
+  { $match: { age: { $gte: 21 } } },      # Filter
+  { $group: { _id: "$course", total: { $sum: 1 } } },  # Group and count
+  { $sort: { total: -1 } }                # Sort by total descending
+])
+
+# =====================================================
+# 🔹 12. EXPORT / IMPORT DATA
+# =====================================================
+
+# Export collection to JSON file:
+# (Run in terminal, not inside mongosh)
+mongoexport --db myDatabase --collection students --out students.json
+
+# Import JSON file into MongoDB:
+mongoimport --db myDatabase --collection students --file students.json
+
+# =====================================================
+# 🔹 13. DROP (DELETE) EVERYTHING
+# =====================================================
+
+db.dropDatabase()
+# → Deletes the current database
+
+# =====================================================
+# 🔹 14. EXTRA TIPS
+# =====================================================
+
+# 1. Collections are automatically created when you insert your first document.
+# 2. MongoDB is case-sensitive for field names.
+# 3. "_id" is automatically added as a unique identifier for each document.
+# 4. Use "pretty()" for clean JSON output.
+# 5. In MongoDB Compass, you can insert, edit, and query visually.
+# 6. Common local URL for Compass: mongodb://localhost:27017
+
+# =====================================================
+# ✅ END OF NOTES
+# =====================================================
