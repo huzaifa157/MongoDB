@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
   age: Number,
 });
 
-// 3️⃣ Create a Model (acts as a collection in database)
+// 3️⃣ Create a Model (acts as a collection in database)   Create Model (like a table in relational DB)
 // Model name: "User" → Collection name will be "users"
 const User = mongoose.model("User", userSchema);
 
@@ -95,15 +95,18 @@ User.find({ age: { $gt: 27 } })
 */
 
 // (D) Find One Document Only
+
 /*
 User.findOne({ age: { $gt: 47 } })
   .then((res) => console.log("First matched user:", res));
 */
 
+
 // (E) Find by ID
 /*
 User.findById("68ebe00c939685a001885570")
   .then((res) => console.log("User found by ID:", res));
+  
 */
 
 // =========================================================

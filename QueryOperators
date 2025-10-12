@@ -1,0 +1,51 @@
+// ========================================================
+// ⚙️ QUERY OPERATORS — Conditions in MongoDB
+// ========================================================
+//
+// $eq   → Equal to
+// $ne   → Not equal to
+// $gt   → Greater than
+// $gte  → Greater than or equal
+// $lt   → Less than
+// $lte  → Less than or equal
+// $in   → Value in given array
+// $nin  → Not in given array
+// $and  → Combine multiple conditions (AND)
+// $or   → Combine multiple conditions (OR)
+// $not  → Negates a condition
+// $exists → Checks if field exists
+// $regex → Pattern matching (like starts with)
+//
+// 🧩 Examples:
+/*
+User.find({ age: { $gt: 25 } });                     // age > 25
+User.find({ age: { $in: [21, 25, 30] } });           // age = 21 or 25 or 30
+User.find({ $and: [{ age: { $lt: 25 } }, { name: "Ali" }] }); // both true
+User.find({ email: { $exists: false } });            // find missing emails
+User.find({ name: { $regex: /^H/, $options: 'i' } }); // name starts with H
+*/
+
+// ========================================================
+// ⚙️ UPDATE OPERATORS — Modify fields smartly
+// ========================================================
+//
+// $set     → Set or change field value
+// $inc     → Increment numeric value
+// $mul     → Multiply numeric value
+// $rename  → Rename a field
+// $unset   → Remove a field
+// $min     → Update only if new value is smaller
+// $max     → Update only if new value is larger
+//
+// 🧩 Examples:
+/*
+User.updateOne({ name: "Ali" }, { $inc: { age: 1 } });   // age +1
+User.updateOne({ name: "Ali" }, { $set: { email: "ali@gmail.com" } });
+User.updateOne({ name: "Ali" }, { $unset: { age: "" } }); // remove age field
+User.updateOne({ name: "Ali" }, { $rename: { name: "fullName" } });
+*/
+
+// ========================================================
+// 📋 FINAL TEST — Display all users
+// ========================================================
+User.find({}).then(res => console.log(res));
