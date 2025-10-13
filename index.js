@@ -9,8 +9,8 @@ const mongoose = require('mongoose');
 
 // 2️⃣ Connect to MongoDB (local server running on port 27017)
 main()
-  .then(() => console.log("✅ MongoDB Connection Successful"))
-  .catch((err) => console.log("❌ Connection Error:", err));
+  .then(() => console.log("MongoDB Connection Successful"))
+  .catch((err) => console.log(" Connection Error:", err));
 
 // Async function to handle database connection
 async function main() {

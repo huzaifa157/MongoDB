@@ -49,3 +49,5 @@ User.updateOne({ name: "Ali" }, { $rename: { name: "fullName" } });
 // 📋 FINAL TEST — Display all users
 // ========================================================
 User.find({}).then(res => console.log(res));
+
+
