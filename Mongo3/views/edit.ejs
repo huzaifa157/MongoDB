@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Chat</title>
+  <style>
+    /* ===== GENERAL STYLES ===== */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      background: linear-gradient(135deg, #8EC5FC, #E0C3FC);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    /* ===== CARD CONTAINER ===== */
+    .edit-container {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 15px;
+      width: 380px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== HEADING ===== */
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+      font-size: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== FORM ELEMENTS ===== */
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #444;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #7b57ff;
+      outline: none;
+      box-shadow: 0 0 4px rgba(123, 87, 255, 0.4);
+    }
+
+    textarea {
+      resize: none;
+      height: 90px;
+    }
+
+    /* ===== BUTTONS ===== */
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    button, .back-btn {
+      text-decoration: none;
+      display: inline-block;
+      background: #7b57ff;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover, .back-btn:hover {
+      background: #6243d8;
+      transform: translateY(-1px);
+    }
+
+    .back-btn {
+      background: #999;
+    }
+
+    .back-btn:hover {
+      background: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="edit-container">
+    <h2>✏️ Edit Chat Message</h2>
+
+    <form action="/chats/<%= chatData._id %>?_method=PUT" method="POST">
+      <label>From:</label>
+      <input type="text" name="from" value="<%= chatData.from %>" required>
+
+      <label>To:</label>
+      <input type="text" name="to" value="<%= chatData.to %>" required>
+
+      <label>Message:</label>
+      <textarea name="msg" required><%= chatData.msg %></textarea>
+
+      <div class="buttons">
+        <a href="/chats" class="back-btn">← Back</a>
+        <button type="submit">💾 Update</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
